@@ -4,6 +4,7 @@ const app = express()
 require("./db/config")
 const User = require("./models/regModel")
 const Product = require("./models/productModel")
+const AddToCard=require("./models/addToCard")
 app.use(express.json())
 
 const cors = require("cors")
@@ -27,13 +28,15 @@ app.post("/products", async (r, s) => {
     s.send(result)
 })
 
+
+
 // delete api for products ("http://localhost:5000/products/:id")
 app.delete("/products/:id", async (r, s) => {
     const result = await Product.deleteOne({ _id: r.params.id })
     s.send(result)
 })
 
-// get id api for products ("http://localhost:5000/products/:id")
+// get api for products using id ("http://localhost:5000/products/:id")
 app.get("/products/:id", async (r, s) => {
     let result = await Product.findOne({ _id: r.params.id })
     if (result) {
@@ -70,7 +73,7 @@ app.post("/reg", async (r, s) => {
 })
 
 
-// compair api for register ("http://localhost:5000/login")
+// compare api for register ("http://localhost:5000/login")
 app.post("/login", async (r, s) => {
 
     if (r.body.email && r.body.password) {
@@ -86,13 +89,9 @@ app.post("/login", async (r, s) => {
     }
 })
 
-
-
-
 //initial api ("http://localhost:5000/")
 app.get("/", (r, s) => {
     s.send("my node working now... ")
 })
-
 
 app.listen(5000)
