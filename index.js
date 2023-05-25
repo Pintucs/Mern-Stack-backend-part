@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const PORT=process.env.PORT || 5000
 
 require("./db/config")
 const User = require("./models/regModel")
@@ -27,8 +28,6 @@ app.post("/products", async (r, s) => {
     const result = await product.save()
     s.send(result)
 })
-
-
 
 // delete api for products ("http://localhost:5000/products/:id")
 app.delete("/products/:id", async (r, s) => {
@@ -72,7 +71,6 @@ app.post("/reg", async (r, s) => {
     s.send(result)
 })
 
-
 // compare api for register ("http://localhost:5000/login")
 app.post("/login", async (r, s) => {
 
@@ -94,4 +92,4 @@ app.get("/", (r, s) => {
     s.send("my node working now... ")
 })
 
-app.listen(5000)
+app.listen(PORT)
